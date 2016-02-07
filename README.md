@@ -23,7 +23,7 @@ client.screed(msg, regSig, function (err, screed) {
 })
 ```
 
-### ```client.generateKeypair()````
+### ```client.generateKeypair()```
 
 Generates a new [elliptic curve keypair](https://github.com/bitchan/eccrypto).
 
