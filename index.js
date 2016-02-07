@@ -1,5 +1,10 @@
-var crypto = require('crypto')
-var eccrypto = require('eccrypto')
+var crypto = require('crypto');
+var eccrypto = require('eccrypto');
+
+var BigInteger = require('bigi');
+var ecurve = require('ecurve');
+var ecparams = ecurve.getCurveByName('secp256k1');
+
 
 module.exports = SPSClient
 
@@ -14,14 +19,55 @@ function SPSClient (opts) {
   if (!opts) opts = {}
   this.privateKey = opts.privateKey
   this.publicKey = opts.publicKey
+  this.blindingSession = {};
 }
+
+SPSClient.prototype.initBlindingSession= function(registrar_q,registrar_r){
+    var r = ecurve.Point.decodeFrom(ecparams,registrar_r);
+    var q = ecurve.Point.decodeFrom(ecparams,registrar_q);
+
+    while (true) {
+        var a = crypto.randomBytes(32);
+        var b = crypto.randomBytes(32);
+        var c = crypto.randomBytes(32);
+
+        var bInv = BigInteger.fromBuffer(b).modInverse(ecparams.n);
+        var abInv = BigInteger.fromBuffer(a).multipgly(bInv).bnMod(ecparams.n);
+        var bInvR = r.multiply(bInv);
+        var abInvQ = q.multiply(abInv);
+        var cG = ecparams.G.multiply(BigInteger.fromBuffer(c));
+
+        var F = bInvR.add(abInvQ).add(cG);
+
+        if (F.x !== 0 && F.y !== 0){
+            this.blindingSession.a =a;
+            this.blindingSession.b =b;
+            this.blindingSession.c =c;
+            this.blindingSession.F = F
+            break;
+        }
+    }
+
+    var blind_r = this.blindingSession.F.x.bnMod(ecparams.n);
+    var blind_m = blind_r.multiple(BigInteger.fromBuffer(b)).multiply(BigInteger.fromBuffer(this.publicKey)).add(BigInteger.fromBuffer(a).bnMod(ecparams).bnMod(ecparams.n))
+    return blind_m;
+}
+
+SPSClient.prototype.unblindsig = function(blindedSig){
+    var bInv = BigInteger.fromBuffer(this.blindingSession.b).modInverse(ecparams.n);
+    var s = bInv.multiply(BigInteger.fromBuffer(new Buffer(blindedSig,'hex'))).add(BigInteger.fromBuffer(this.blindingSession.c)).bnMod(ecpecparams.n)
+    return {
+        s:s,
+        F:this.blindingSession.F
+    }
+};
 
 SPSClient.prototype.generateKeypair = function () {
   this.privateKey = crypto.randomBytes(32)
   this.publicKey = eccrypto.getPublic(this.privateKey)
 }
 
-SPSClient.prototype._sign = function (str, cb) { 
+SPSClient.prototype._sign = function (str, cb) {
   var self = this
   var msg = crypto.createHash("sha256").update(str).digest();
   eccrypto.sign(self.privateKey, msg).then(function (sig) {
@@ -48,5 +94,3 @@ SPSClient.prototype.screed = function (msg, regSig, cb) {
     return cb(null, screed)
   })
 }
-
-
