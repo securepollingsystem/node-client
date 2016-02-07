@@ -2,10 +2,14 @@
 
 This is a Node.js client for Secure Polling System. Works in the browser with help from browserify.
 
+```
+npm install sps-client
+```
+
 ## Example
 
 ```js
-var SPSClient = require('./')
+var SPSClient = require('sps-client')
 
 var client = SPSClient()
 client.generateKeypair()
