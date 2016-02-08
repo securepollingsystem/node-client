@@ -22,6 +22,11 @@ function SPSClient (opts) {
   this.blindingSession = {};
 }
 
+SPSClient.prototype.loadBlindingSession = function(session){
+    session.F = ecurve.Point.decodeFrom(ecparams,session.F)
+    this.blindingSession = session;
+};
+
 SPSClient.prototype.initBlindingSession= function(registrar_q,registrar_r){
     var r = ecurve.Point.decodeFrom(ecparams,registrar_r);
     var q = ecurve.Point.decodeFrom(ecparams,registrar_q);
@@ -55,13 +60,22 @@ SPSClient.prototype.initBlindingSession= function(registrar_q,registrar_r){
 
 SPSClient.prototype.unblindSig = function(blindedSig){
     var bInv = BigInteger.fromBuffer(this.blindingSession.b).modInverse(ecparams.n);
-    var s = bInv.multiply(BigInteger.fromBuffer(new Buffer(blindedSig,'hex'))).add(BigInteger.fromBuffer(this.blindingSession.c)).bnMod(ecparams.n)
+    var s = bInv.multiply(BigInteger.fromBuffer(new Buffer(blindedSig,'hex'))).add(BigInteger.fromBuffer(this.blindingSession.c)).mod(ecparams.n)
     return {
         s:s,
         F:this.blindingSession.F
-    }
-    //TODO figure out serialization of the unblinded
+    };
 };
+
+SPSClient.prototype.validateRegSig(registrarQ, unblindedSig){
+    var sg = ecparams.G.multiply(unblindedSig.s);
+    var rm = unblindedSig.F.x.mod(ecparams.n).multiply(BigInteger.fromInteger(this.publicKey)).mod(ecparams.n);
+    var q = ecurve.Point.decodeFrom(ecparams,registrarQ);
+    QF= q.multiply(rm).add(unblindedSig.F);
+    //TODO make a point equality function
+
+
+}
 
 SPSClient.prototype.generateKeypair = function () {
   this.privateKey = crypto.randomBytes(32)
