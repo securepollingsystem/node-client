@@ -32,7 +32,7 @@ SPSClient.prototype.initBlindingSession= function(registrar_q,registrar_r){
         var c = crypto.randomBytes(32);
 
         var bInv = BigInteger.fromBuffer(b).modInverse(ecparams.n);
-        var abInv = BigInteger.fromBuffer(a).multipgly(bInv).bnMod(ecparams.n);
+        var abInv = BigInteger.fromBuffer(a).multiply(bInv).mod(ecparams.n);
         var bInvR = r.multiply(bInv);
         var abInvQ = q.multiply(abInv);
         var cG = ecparams.G.multiply(BigInteger.fromBuffer(c));
@@ -48,18 +48,19 @@ SPSClient.prototype.initBlindingSession= function(registrar_q,registrar_r){
         }
     }
 
-    var blind_r = this.blindingSession.F.x.bnMod(ecparams.n);
-    var blind_m = blind_r.multiple(BigInteger.fromBuffer(b)).multiply(BigInteger.fromBuffer(this.publicKey)).add(BigInteger.fromBuffer(a).bnMod(ecparams).bnMod(ecparams.n))
+    var blind_r = this.blindingSession.F.x.mod(ecparams.n);
+    var blind_m = blind_r.multiply(BigInteger.fromBuffer(this.blindingSession.b)).multiply(BigInteger.fromBuffer(this.publicKey)).add(BigInteger.fromBuffer(this.blindingSession.a)).mod(ecparams.n)
     return blind_m;
 }
 
-SPSClient.prototype.unblindsig = function(blindedSig){
+SPSClient.prototype.unblindSig = function(blindedSig){
     var bInv = BigInteger.fromBuffer(this.blindingSession.b).modInverse(ecparams.n);
-    var s = bInv.multiply(BigInteger.fromBuffer(new Buffer(blindedSig,'hex'))).add(BigInteger.fromBuffer(this.blindingSession.c)).bnMod(ecpecparams.n)
+    var s = bInv.multiply(BigInteger.fromBuffer(new Buffer(blindedSig,'hex'))).add(BigInteger.fromBuffer(this.blindingSession.c)).bnMod(ecparams.n)
     return {
         s:s,
         F:this.blindingSession.F
     }
+    //TODO figure out serialization of the unblinded
 };
 
 SPSClient.prototype.generateKeypair = function () {

@@ -10,6 +10,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "eccrypto": "^1.0.3",
-    "ecurve": "^1.0.2"
+    "ecurve": "^1.0.2",
+    "bigi":"*"
   }
 }
