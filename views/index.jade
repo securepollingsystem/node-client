@@ -1,0 +1,22 @@
+html
+  head
+    title= title
+    //- link(rel='stylesheet', href='/stylesheets/style.css')
+    //- link(rel='stylesheet', href='/stylesheets/chunkfive-fontface.css')
+  body
+    header
+      nav
+        ul
+          li 
+            a(href="/") Home
+          li 
+            a(href="/about") About
+    section
+        p Try it out
+        div
+            form(action='/screed', method='post', enctype='application/x-www-form-urlencoded')
+                label(for='message') Type your screed here: 
+                input(id='message', type='text', name='screed', placeholder='message')
+                input(type='submit')
+
+        footer 

@@ -12,6 +12,7 @@
     "eccrypto": "^1.0.3",
     "ecurve": "^1.0.2",
     "bigi":"*",
-    "express": "*"
+    "express": "*",
+    "jade": "*"
   }
 }
