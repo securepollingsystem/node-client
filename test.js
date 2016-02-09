@@ -18,7 +18,8 @@ var blinded_key = client.initBlindingSession(Q,R);
 
 console.log(blinded_key.toBuffer().toString("hex"))
 
-// client.screed(msg, regSig, function (err, screed) {
-//   if (err) throw err
-//   console.log(screed)
-// })
+
+client.screed(msg, regSig, function (err, screed) {
+  if (err) throw err
+  console.log(screed)
+})

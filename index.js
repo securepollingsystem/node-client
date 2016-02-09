@@ -5,7 +5,6 @@ var BigInteger = require('bigi');
 var ecurve = require('ecurve');
 var ecparams = ecurve.getCurveByName('secp256k1');
 
-
 module.exports = SPSClient
 
 var prefix = '-----BEGIN SPS SCREED TEXT-----'
@@ -68,7 +67,8 @@ SPSClient.prototype.generateKeypair = function () {
   this.publicKey = eccrypto.getPublic(this.privateKey)
 }
 
-SPSClient.prototype._sign = function (str, cb) {
+
+SPSClient.prototype._sign = function (str, cb) { 
   var self = this
   var msg = crypto.createHash("sha256").update(str).digest();
   eccrypto.sign(self.privateKey, msg).then(function (sig) {
@@ -95,3 +95,4 @@ SPSClient.prototype.screed = function (msg, regSig, cb) {
     return cb(null, screed)
   })
 }
+

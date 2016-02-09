@@ -6,6 +6,8 @@ var regSig = 'iamregistrar'
 var express = require('express');
 var app = express();
 
+app.use(express.bodyParser());
+
 app.listen(3000)
 
 app.get('/', function(req, res){
@@ -17,7 +19,7 @@ app.get('/about', function(req, res){
 });
 
 
-// app.use(express.bodyParser());
+
 
 
 // app.post('/screed', function(req, res){
