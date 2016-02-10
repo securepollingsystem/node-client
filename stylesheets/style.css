@@ -1,0 +1,44 @@
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+nav {
+    background-color: #C9D1D4;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    margin-bottom: 10%;
+}
+
+header li {
+    text-decoration: none;
+    display: inline;
+    padding: 30px;
+}
+
+header li a {
+    text-decoration: none;
+    color: white;
+}
+
+header li a:hover {
+    color: #0A7294;
+}
+
+.main {
+    position: absolute;
+    top: 20%;
+    border: 3px solid black;
+    margin: auto;
+    left: 10%;
+    padding: 20px;
+}
+
+.about {
+    position: absolute; 
+    top: 15%;
+    margin: auto;
+    left: 10%;
+}
+

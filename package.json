@@ -9,10 +9,14 @@
   "author": "Karissa McKelvey <krmckelv@gmail.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "bigi":"*",
+    "body-parser":"*",
+    "connect": "*",
     "eccrypto": "^1.0.3",
     "ecurve": "^1.0.2",
-    "bigi":"*",
     "express": "*",
+    "levelup": "*",
+    "nodemon": "*",
     "jade": "*"
   }
 }

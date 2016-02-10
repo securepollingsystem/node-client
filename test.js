@@ -23,3 +23,8 @@ client.screed(msg, regSig, function (err, screed) {
   if (err) throw err
   console.log(screed)
 })
+
+// client.displayScreed(msg, regSig, function (err, screed) {
+//   if (err) throw err
+//   console.log("Display screed: " + screed)
+// })
