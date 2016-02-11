@@ -21,6 +21,7 @@ SPSClient.prototype.generateKeypair = function () {
   this.publicKey = eccrypto.getPublic(this.privateKey)
 }
 
+
 SPSClient.prototype._sign = function (str, cb) { 
   var self = this
   var msg = crypto.createHash("sha256").update(str).digest();
@@ -49,4 +50,19 @@ SPSClient.prototype.screed = function (msg, regSig, cb) {
   })
 }
 
+SPSClient.prototype.displayScreed = function (msg, regSig, cb) {
+  var self = this
+  self._sign(msg, function (err, sig) {
+    if (err) return cb(err)
+    var screed = {
+      index:  Math.floor((Math.random() * 100) + 1),
+      opinion: msg,
+      screedSig: new Buffer(new Uint8Array(sig)).toString('base64'),
+      screedPubKey: new Buffer(new Uint8Array(self.publicKey)).toString('base64'),
+      regSig: regSig
+    }
+    console.log(JSON.stringify(screed))
+    return cb(null, screed)
+  })
+}
 
