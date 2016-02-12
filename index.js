@@ -25,9 +25,9 @@ SPSClient.prototype._sign = function (str, cb) {
   var self = this
   var msg = crypto.createHash("sha256").update(str).digest();
   eccrypto.sign(self.privateKey, msg).then(function (sig) {
-    return cb(null, sig)
+    cb(null, sig)
   }).catch(function (err) {
-    throw err
+    cb(err)
   })
 }
 
