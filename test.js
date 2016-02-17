@@ -1,6 +1,6 @@
 var SPSClient = require('./')
 var msg = process.argv[2] || 'I love ice cream'
-var disk = require('./keys.js')
+var disk = require('./disk.js')
 
 var client = SPSClient({opinions : ['i like ice cream','stop pets!','spaces not tabs']})
 disk.loadKeys(client, function (err, client) {
