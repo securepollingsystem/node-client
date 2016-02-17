@@ -1,7 +1,9 @@
 var level = require('level') // levelDB for data storage
 var db = level('./data')
 
-module.exports = loadKeys
+module.exports.loadKeys = loadKeys
+module.exports.loadOpinions = loadOpinions
+module.exports.saveOpinions = saveOpinions
 
 function loadKeys (client, cb) {
   db.get('publicKey',{encoding:'binary'},function (err, value) {
@@ -30,3 +32,16 @@ function loadKeys (client, cb) {
   }
 }
 
+function loadOpinions (client, cb) {
+  db.get('opinions',function (err, value) {
+    if (err) return cb(new Error("no opinions found"),client)
+    client.opinions = value
+    cb(null,client)
+  })
+}
+
+function saveOpinions (client, cb) {
+  db.put('opinions', client.opinions, function (err) {
+    if (err) return cb(new Error("can't write opinions[]!"))
+  })
+}

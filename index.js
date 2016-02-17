@@ -14,13 +14,13 @@ function SPSClient (opts) {
   if (!opts) opts = {}
   this.privateKey = opts.privateKey
   this.publicKey = opts.publicKey
+  this.opinions = opts.opinions || ['no opinions loaded']
 }
 
 SPSClient.prototype.generateKeypair = function () {
   this.privateKey = crypto.randomBytes(32)
   this.publicKey = eccrypto.getPublic(this.privateKey)
 }
-
 
 SPSClient.prototype._sign = function (str, cb) { 
   var self = this
