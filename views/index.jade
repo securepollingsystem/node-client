@@ -3,7 +3,7 @@ include dashboard.jade
 .main
     h4 State your opinion
     div
-        form(action='/screed', method='post', enctype='application/x-www-form-urlencoded')
+        form(action='/opinions/create', method='post', enctype='application/x-www-form-urlencoded')
             label(for='message') Type your statement here: 
             br
             input(id='message', type='text', name='screed', placeholder='message')

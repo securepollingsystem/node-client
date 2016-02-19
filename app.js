@@ -1,11 +1,13 @@
 var SPSClient = require('./');
-var client = SPSClient()
+var client = SPSClient({opinions : ['i like ice cream','stop pets!','spaces not tabs']})
 client.generateKeypair()
 
 var express = require('express');
 var connect = require('connect');
 var bodyParser = require('body-parser');
 var app = express();
+
+var disk = require('./disk.js');
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -26,16 +28,19 @@ app.get('/about', function(req, res){
     res.render('about');
 });
 
-app.post('/screed', function(req, res){
+app.get('/opinions', function(req, res){
+    disk.loadOpinions(client, function (err, client) {
+      if (err) console.error(err)
+      opinions = client.opinions
+      res.render('opinions', {opinions: opinions})
+    })
+});
+
+app.post('/opinions/create', function(req, res){
     var msg = req.body.screed
     var regSig = 'iamregistrar'
-    client.displayScreed(msg, regSig, function (err, screed) {
-      if (err) throw err
-      // console.log(screed);
-      res.send(screed);
-      // res.render('screed', {screed: screed});
-      res.end();
-    });
+    client.opinions.push(msg)
+    res.redirect('/opinions')
 });
 
 

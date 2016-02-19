@@ -41,7 +41,9 @@ function loadOpinions (client, cb) {
 }
 
 function saveOpinions (client, cb) {
-  db.put('opinions', client.opinions, function (err) {
+  db.put('opinions', client.opinions, function (err, value) {
     if (err) return cb(new Error("can't write opinions[]!"))
+    client.opinions = value;
+    cb(null, value)
   })
 }

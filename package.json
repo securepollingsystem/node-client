@@ -13,6 +13,7 @@
     "connect": "*",
     "eccrypto": "^1.0.3",
     "express": "*",
+    "level": "*",
     "levelup": "*",
     "nodemon": "*",
     "jade": "*"
