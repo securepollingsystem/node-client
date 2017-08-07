@@ -58,5 +58,17 @@ Returns if the registrar signature locally is valid. Returns false if the regist
 Get the registrar signature for the given identity. If successful, this function will save the registrar signature locally, unblind it using the stored salt, store it locally, and return true. If there is no valid signature, it will return false.
 
 ### ```user.screed.append(msg, cb)```
+
+Add a message to the screed. If there is no valid signature, will return an error.
+
 ### ```user.screed.remove(index, cb)```
+
+Remove a message to the screed using the given index.
+
 ### ```user.screed.list(cb)```
+
+List the current messages in the screed, along with their indexes.
+
+### ```user.uploadScreed(cb)```
+
+Uploads the user's current screed to the registrar.
