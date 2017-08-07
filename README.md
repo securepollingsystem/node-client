@@ -25,7 +25,7 @@ Import the given data from another client to replicate the state of the client.
 * `registrar`: the registrar URL.
 * `identity`: A unique string with information that the registrar will use to verify user identity in person.
 * `opts`:
-  * `tallyspider*: array of preferred tallyspiders
+  * `tallyspider`: array of preferred tallyspiders
 
 ### ```var user = client.getUser(registar, identity, cb)```
 
