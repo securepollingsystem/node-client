@@ -4,17 +4,10 @@
   "description": "Browser-compatible client for Secure Polling System.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Karissa McKelvey <krmckelv@gmail.com>",
-  "license": "BSD-3-Clause",
+  "license": "GPL",
   "dependencies": {
-    "body-parser":"*",
-    "connect": "*",
-    "eccrypto": "^1.0.3",
-    "express": "*",
-    "levelup": "*",
-    "nodemon": "*",
-    "jade": "*"
   }
 }
