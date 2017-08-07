@@ -25,7 +25,7 @@ The 'My phrases' page has:
   1. *List*: List my phrases. These are all stored locally in the user's history.
   2. *Add*: Add a new phrase to my list of phrases.
   3. *Delete*: Delete a phrase from my list of phrases.
-
+  4. *Send*: Send the phrases to the registrar.
 
 
 They go to a website that is tallying, e.g., tally.berkeleypost.com.
