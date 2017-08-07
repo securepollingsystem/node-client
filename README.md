@@ -4,11 +4,11 @@ This is a JavaScript client for Secure Polling System. This contains the logic n
 
 ## API
 
-### ```var client = SPS(storage)```
+### ```var client = SPS([storage])```
 
 Create a SPS client that stores the data.
 
-* `storage`: options that can be overridden for data storage defaults, e.g., in the case of implementing this on the phone, desktop, or browser extension.
+* `storage`: can be overridden for data storage defaults, e.g., in the case of implementing this on the phone, desktop, or browser extension. Default stores the data in Indexeddb
 
 ### ```client.export([opts], cb)```
 
