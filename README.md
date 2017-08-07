@@ -27,7 +27,7 @@ Import the given data from another client to replicate the state of the client.
 * `opts`:
   * `tallyspider`: array of preferred tallyspiders
 
-### ```var user = client.getUser(registar, identity, cb)```
+### ```var user = client.getUser(registar, identity)```
 
 Get a user with the given identity.
 
