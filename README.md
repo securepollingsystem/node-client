@@ -27,15 +27,28 @@ The 'My phrases' page has:
   3. *Delete*: Delete a phrase from my list of phrases.
   4. *Send*: Send the phrases to the registrar.
 
-
 They go to a website that is tallying, e.g., tally.berkeleypost.com.
 
 ## API
 
-### ```client.generateKeypair()```
+### ```var client = SPS(opts)```
 
-Generates a new elliptic curve keypair.
+Create a SPS client that stores the data.
 
-### ```client.screed(msg, registrarSignature, cb)```
+* `name` is optional, and defaults to 'myprofile'. This is useful if you have multiple people who interact with the same registrar on the same computer, so you can differentiate between multiple sps profiles.
+
+### ```client.generateKeypair(registrar, cb)```
+
+Generates a new keypair and saves it in the Indexeddb.
+
+If a keypair already exists for this registrar, return an error.
+
+* `registrar`: the registrar for this keypair. It is advised to use a different keypair for different registrars.
+
+### ```client.addRegistrarSignature(registrar, signature, cb)```
+
+Add the registrar signature for the given client.
+
+### ```client.createScreed(msg, registrar, cb)```
 
 Create a SPS screed for the given message. Requires a registrar signature, which will be included in the screed. cb returns (err, screed)
