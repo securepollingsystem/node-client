@@ -59,7 +59,7 @@ Get the registrar signature for the given identity. If successful, this function
 
 ### ```user.screed.append(msg, cb)```
 
-Add a message to the screed. If there is no valid signature, will return an error.
+Add a message to the screed.
 
 ### ```user.screed.remove(index, cb)```
 
@@ -71,4 +71,4 @@ List the current messages in the screed, along with their indexes.
 
 ### ```user.uploadScreed(cb)```
 
-Uploads the user's current screed to the registrar.
+Uploads the user's current screed to the registrar. If there is no valid signature for the user's registrar, will return an error.
