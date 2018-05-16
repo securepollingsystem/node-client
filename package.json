@@ -4,10 +4,13 @@
   "description": "Browser-compatible client for Secure Polling System.",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "mocha"
   },
   "author": "Karissa McKelvey <krmckelv@gmail.com>",
   "license": "GPL",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
   }
 }
