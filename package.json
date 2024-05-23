@@ -9,5 +9,6 @@
   "author": "Karissa McKelvey <krmckelv@gmail.com>",
   "license": "GPL",
   "dependencies": {
+    "sps-client": "^1.0.3"
   }
 }

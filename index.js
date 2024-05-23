@@ -17,10 +17,9 @@ function SPSClient (opts) {
 }
 
 SPSClient.prototype.generateKeypair = function () {
-  this.privateKey = crypto.randomBytes(32)
-  this.publicKey = eccrypto.getPublic(this.privateKey)
+  this.privateKey = eccrypto.generatePrivate()  // A new random 32-byte private key.
+  this.publicKey = eccrypto.getPublic(this.privateKey)  // Corresponding uncompressed (65-byte) public key.
 }
-
 
 SPSClient.prototype._sign = function (str, cb) { 
   var self = this
